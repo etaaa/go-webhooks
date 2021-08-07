@@ -7,14 +7,27 @@ import (
 	"fmt"
 	"net/http"
 	"strconv"
+	"strings"
 	"time"
 )
 
 // -----------------------------------------------------------------------
-// RETURNS NEW TIMESTAMP ACCORDING TO DISCORDS FORMAT (ISO8601)
+// RETURNS NEW TIMESTAMP ACCORDING TO DISCORD'S FORMAT (ISO8601)
 // -----------------------------------------------------------------------
 func GetTimestamp() string {
 	return time.Now().UTC().Format("2006-01-02T15:04:05-0700")
+}
+
+// -----------------------------------------------------------------------
+// RETURNS COLOR IN DECIMAL VALUE
+// -----------------------------------------------------------------------
+func GetColor(hexColor string) int {
+	hexColor = strings.Replace(hexColor, "#", "", -1)
+	decimalColor, err := strconv.ParseInt(hexColor, 16, 64)
+	if err != nil {
+		return 0
+	}
+	return int(decimalColor)
 }
 
 // -----------------------------------------------------------------------
