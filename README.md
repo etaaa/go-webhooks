@@ -1,6 +1,9 @@
 # go-webhooks
 
-A easy to use Golang 
+[![Go Reference](https://pkg.go.dev/badge/github.com/etaaa/go-webhooks.svg)](https://pkg.go.dev/github.com/etaaa/go-webhooks)
+[![Go Report Card](https://goreportcard.com/badge/github.com/etaaa/go-webhooks)](https://goreportcard.com/report/github.com/etaaa/go-webhooks)
+
+A easy to use Golang package to quickly send Discord webhooks (<https://discord.com/developers/docs/resources/webhook>). 
 
 ## Installation
 
