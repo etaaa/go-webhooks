@@ -23,8 +23,6 @@ import (
 )
 
 func main() {
-	// SET YOUR WEBHOOK URL
-	webookUrl := "https://discord.com/api/webhooks/.../..."
 	// CREATE A NEW WEBHOOK OBJECT - MOST FIELDS IN THE EXAMPLE ARE OPTIONAL BUT THERE ARE MORE AVAILBABLE 
 	newWebhook := goWebhooks.Webhook{
 		Content:   "This is the webhook's content - up to 2000 characters long.",
@@ -58,7 +56,7 @@ func main() {
 		},
 	}
 	// SEND THE WEBHOOK
-	err := goWebhooks.SendWebhook(webookUrl, newWebhook, true)
+	err := goWebhooks.SendWebhook("https://discord.com/api/webhooks/../..", newWebhook, true)
 	if err != nil {
 		log.Fatal(err)
 	}
