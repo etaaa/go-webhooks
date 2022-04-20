@@ -1,4 +1,4 @@
-package goWebhooks
+package main
 
 import (
 	"bytes"
@@ -11,12 +11,12 @@ import (
 	"time"
 )
 
-// Returns a timestamp for the footer according to Discord's format (ISO8601)
+// Returns a timestamp for the embed footer according to ISO8601 format (required)
 func GetTimestamp() string {
 	return time.Now().UTC().Format("2006-01-02T15:04:05-0700")
 }
 
-// Transforms hex to decimal (required for webhooks)
+// Transforms hex color code to decimal (required)
 func GetColor(hexColor string) int {
 	hexColor = strings.Replace(hexColor, "#", "", -1)
 	decimalColor, err := strconv.ParseInt(hexColor, 16, 64)
@@ -27,14 +27,14 @@ func GetColor(hexColor string) int {
 }
 
 // Execute the webhook request
-func SendWebhook(webookUrl string, webhook Webhook, retryOnRateLimit bool) error {
-	if webhook.Content == "" && len(webhook.Embeds) == 0 {
-		return errors.New("You must attach atleast one of these: Content; Embeds")
+func SendWebhook(webookUrl string, content Webhook, retryOnRateLimit bool) error {
+	if content.Content == "" && len(content.Embeds) == 0 {
+		return errors.New("you must attach atleast one of these: content; embeds")
 	}
-	if len(webhook.Embeds) > 10 {
-		return errors.New("Maximum number of embeds per webhook is 10")
+	if len(content.Embeds) > 10 {
+		return errors.New("maximum number of embeds per webhook is 10")
 	}
-	jsonData, err := json.Marshal(webhook)
+	jsonData, err := json.Marshal(content)
 	if err != nil {
 		return err
 	}
@@ -43,24 +43,22 @@ func SendWebhook(webookUrl string, webhook Webhook, retryOnRateLimit bool) error
 		if err != nil {
 			return err
 		}
+		defer res.Body.Close()
 		switch res.StatusCode {
 		case 204:
-			res.Body.Close()
 			return nil
 		case 429:
-			res.Body.Close()
 			if !retryOnRateLimit {
-				return errors.New("Webhook ratelimited")
+				return errors.New("webhook rate limited")
 			}
 			timeout, err := strconv.Atoi(res.Header.Get("retry-after"))
-			if err != nil {
-				time.Sleep(5 * time.Second)
-			} else {
+			if err == nil {
 				time.Sleep(time.Duration(timeout) * time.Millisecond)
+			} else {
+				time.Sleep(5 * time.Second)
 			}
 		default:
-			res.Body.Close()
-			return errors.New(fmt.Sprintf("Bad request (Status %d)", res.StatusCode))
+			return fmt.Errorf("bad request (status code %d)", res.StatusCode)
 		}
 	}
 }
