@@ -1,19 +1,15 @@
 # go-webhooks
 
-[![Go Reference](https://pkg.go.dev/badge/github.com/etaaa/go-webhooks.svg)](https://pkg.go.dev/github.com/etaaa/go-webhooks)
-[![Go Report Card](https://goreportcard.com/badge/github.com/etaaa/go-webhooks)](https://goreportcard.com/report/github.com/etaaa/go-webhooks)
+A easy to use Golang package to quickly send Discord webhooks (https://discord.com/developers/docs/resources/webhook).
 
-A easy to use Golang package to quickly send Discord webhooks (<https://discord.com/developers/docs/resources/webhook>). 
+## Usage
 
-## Installation
-
+Install:
 ```bash
 go get github.com/etaaa/go-webhooks
 ```
 
-## Example
-
-
+Usage:
 ```go
 package main
 
@@ -23,8 +19,8 @@ import (
 )
 
 func main() {
-	// CREATE A NEW WEBHOOK OBJECT - MOST FIELDS IN THE EXAMPLE ARE OPTIONAL BUT THERE ARE MORE AVAILBABLE 
-	newWebhook := wh.Webhook{
+	// CREATE A NEW WEBHOOK OBJECT - MOST FIELDS IN THE EXAMPLE ARE OPTIONAL AND THERE ARE MORE AVAILBABLE
+	content := wh.Webhook{
 		Content:   "This is the webhook's content - up to 2000 characters long.",
 		Username:  "go-webhooks",
 		AvatarUrl: "https://golang.org/lib/godoc/images/footer-gopher.jpg",
@@ -33,7 +29,7 @@ func main() {
 				Title:       "Embed Title with URL",
 				Description: "This is the embed's description",
 				Url:         "https://github.com/etaaa/go-webhooks",
-				Timestamp:   wh.GetTimestamp(), // RETURNS NEW TIMESTAMP ACCORDING TO DISCORD'S FORMAT
+				Timestamp:   wh.GetTimestamp(),      // RETURNS NEW TIMESTAMP ACCORDING TO DISCORD'S FORMAT
 				Color:       wh.GetColor("#00ff00"), // RETURNS COLOR ACCORDING TO DISCORD'S FORMAT
 				Footer: wh.EmbedFooter{
 					Text: "Sent via github.com/etaaa/go-webhooks",
@@ -49,26 +45,24 @@ func main() {
 				Fields: []wh.EmbedFields{
 					{
 						Name:  "Field 1",
-						Value: "Basic text here",
+						Value: "Text here",
 					},
 				},
 			},
 		},
 	}
 	// SEND THE WEBHOOK
-	if err := wh.SendWebhook("https://discord.com/api/webhooks/../..", newWebhook, true); err != nil {
+	if err := wh.SendWebhook("https://discord.com/api/webhooks/.../...", content, true); err != nil {
 		log.Fatal(err)
 	}
 }
 ```
 
 ## Questions
-For any questions feel free to DM me on Discord (eta#0001).
+For any questions feel free to add and DM me on Discord (eta#0001).
 
 ## Contributing
-Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
-
-Please make sure to update tests as appropriate.
+Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change. Please make sure to update tests as appropriate.
 
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)

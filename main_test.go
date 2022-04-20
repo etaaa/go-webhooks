@@ -39,7 +39,7 @@ func Test(t *testing.T) {
 		},
 	}
 	// SEND THE WEBHOOK
-	if err := SendWebhook("https://discord.com/api/webhooks/873677245154209812/RtrkaAKv_YwY53EB9QSpIdi0a82yrt7Bimu5fneCV6v_2eQPAnwAtTZwg0skP8Y0TKCu", content, true); err != nil {
+	if err := SendWebhook("https://discord.com/api/webhooks/.../...", content, true); err != nil {
 		log.Fatal(err)
 	}
 }
