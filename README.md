@@ -1,6 +1,6 @@
 # go-webhooks
 
-A easy to use Golang package to quickly send Discord webhooks (https://discord.com/developers/docs/resources/webhook).
+An easy to use Golang package to quickly send Discord webhooks (https://discord.com/developers/docs/resources/webhook).
 
 ## Usage
 
