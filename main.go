@@ -43,7 +43,7 @@ func SendWebhook(webookUrl string, content Webhook, retryOnRateLimit bool) error
 		if err != nil {
 			return err
 		}
-		defer res.Body.Close()
+		res.Body.Close()
 		switch res.StatusCode {
 		case 204:
 			return nil

@@ -19,8 +19,8 @@ import (
 )
 
 func main() {
-	// CREATE A NEW WEBHOOK OBJECT - MOST FIELDS IN THE EXAMPLE ARE OPTIONAL AND THERE ARE MORE AVAILBABLE
-	content := wh.Webhook{
+	// Create a new webhook object. Most fields are optional
+	webhook := wh.Webhook{
 		Content:   "This is the webhook's content - up to 2000 characters long.",
 		Username:  "go-webhooks",
 		AvatarUrl: "https://golang.org/lib/godoc/images/footer-gopher.jpg",
@@ -29,8 +29,8 @@ func main() {
 				Title:       "Embed Title with URL",
 				Description: "This is the embed's description",
 				Url:         "https://github.com/etaaa/go-webhooks",
-				Timestamp:   wh.GetTimestamp(),      // RETURNS NEW TIMESTAMP ACCORDING TO DISCORD'S FORMAT
-				Color:       wh.GetColor("#00ff00"), // RETURNS COLOR ACCORDING TO DISCORD'S FORMAT
+				Timestamp:   wh.GetTimestamp(),      // Returns a new timestamp matching Discords format
+				Color:       wh.GetColor("#00ff00"), // Returns the color in decimal value matching Discords format
 				Footer: wh.EmbedFooter{
 					Text: "Sent via github.com/etaaa/go-webhooks",
 				},
@@ -51,8 +51,8 @@ func main() {
 			},
 		},
 	}
-	// SEND THE WEBHOOK
-	if err := wh.SendWebhook("https://discord.com/api/webhooks/.../...", content, true); err != nil {
+	// Send the webhook
+	if err := wh.SendWebhook("https://discord.com/api/webhooks/.../...", webhook, true); err != nil {
 		log.Fatal(err)
 	}
 }
